@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Accesibilidad de Colores</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Playfair Display', 'Georgia', serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      min-height: 100%;
+      height: 100%;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 30px;
+      background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+      border-radius: 2px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 155, 0.2);
+    }
+
+    h1 {
+      margin: 0 0 15px 0;
+      font-size: 42px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, #d4af9b, #c9a68a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-transform: uppercase;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .subtitle {
+      color: #b8a090;
+      font-size: 14px;
+      margin: 0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+    }
+
+    .color-picker-section {
+      background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+      padding: 35px;
+      border-radius: 2px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 155, 0.15);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 300;
+      color: #d4af9b;
+      margin: 0 0 25px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(212, 175, 155, 0.2);
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .color-item {
+      text-align: center;
+    }
+
+    .color-input-wrapper {
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .color-preview {
+      width: 100%;
+      height: 90px;
+      border-radius: 1px;
+      cursor: pointer;
+      border: 1px solid rgba(212, 175, 155, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .color-preview:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(212, 175, 155, 0.2);
+      border-color: rgba(212, 175, 155, 0.5);
+    }
+
+    .color-input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .color-label {
+      font-size: 11px;
+      color: #b8a090;
+      font-weight: 300;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .color-value {
+      font-size: 11px;
+      color: #8a7a6a;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 1px;
+    }
+
+    .simulation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .simulation-card {
+      background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
+      padding: 25px;
+      border-radius: 1px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 155, 0.15);
+    }
+
+    .simulation-header {
+      font-size: 13px;
+      font-weight: 300;
+      color: #d4af9b;
+      margin: 0 0 18px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .preview-box {
+      padding: 30px;
+      border-radius: 1px;
+      margin-bottom: 18px;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(212, 175, 155, 0.1);
+      letter-spacing: 0.5px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .contrast-info {
+      background: rgba(212, 175, 155, 0.05);
+      padding: 15px;
+      border-radius: 1px;
+      font-size: 12px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(212, 175, 155, 0.1);
+      color: #b8a090;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .contrast-ratio {
+      font-weight: 400;
+      color: #d4af9b;
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    .wcag-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .badge {
+      padding: 6px 14px;
+      border-radius: 1px;
+      font-size: 9px;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-family: 'Lato', sans-serif;
+      border: 1px solid;
+    }
+
+    .badge-pass {
+      background: rgba(180, 220, 180, 0.1);
+      color: #a8d4a8;
+      border-color: rgba(180, 220, 180, 0.3);
+    }
+
+    .badge-fail {
+      background: rgba(220, 180, 180, 0.1);
+      color: #d4a8a8;
+      border-color: rgba(220, 180, 180, 0.3);
+    }
+
+    .suggestions {
+      background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+      padding: 35px;
+      border-radius: 2px;
+      margin-top: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 155, 0.15);
+    }
+
+    .suggestion-item {
+      background: rgba(212, 175, 155, 0.05);
+      padding: 20px;
+      border-radius: 1px;
+      margin-bottom: 15px;
+      border-left: 2px solid #d4af9b;
+      border: 1px solid rgba(212, 175, 155, 0.15);
+    }
+
+    .suggestion-title {
+      font-weight: 300;
+      color: #d4af9b;
+      margin: 0 0 10px 0;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .suggestion-colors {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .suggestion-color {
+      width: 55px;
+      height: 55px;
+      border-radius: 1px;
+      border: 1px solid rgba(212, 175, 155, 0.3);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .suggestion-color:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(212, 175, 155, 0.2);
+      border-color: rgba(212, 175, 155, 0.5);
+    }
+
+    .emoji {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .color-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+      }
+
+      .simulation-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-box {
+        font-size: 16px;
+        min-height: 80px;
+      }
+    }
+  </style>
+  <style> @view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <main class="container">
+   <header>
+    <h1 id="main-title">Simulador de Accesibilidad</h1>
+    <p class="subtitle" id="subtitle">Análisis Profesional de Contraste Cromático</p>
+   </header>
+   <section class="color-picker-section">
+    <h2 class="section-title"><span class="emoji">◆</span> Selección de Paleta</h2>
+    <div class="color-grid">
+     <div class="color-item">
+      <div class="color-input-wrapper">
+       <div class="color-preview" id="text-preview" style="background-color: #d4af9b;"></div><input type="color" id="text-color" class="color-input" value="#d4af9b">
+      </div>
+      <div class="color-label">
+       Color de Texto
+      </div>
+      <div class="color-value" id="text-value">
+       #d4af9b
+      </div>
+     </div>
+     <div class="color-item">
+      <div class="color-input-wrapper">
+       <div class="color-preview" id="bg-preview" style="background-color: #1a1a1a;"></div><input type="color" id="bg-color" class="color-input" value="#1a1a1a">
+      </div>
+      <div class="color-label">
+       Color de Fondo
+      </div>
+      <div class="color-value" id="bg-value">
+       #1a1a1a
+      </div>
+     </div>
+     <div class="color-item">
+      <div class="color-input-wrapper">
+       <div class="color-preview" id="accent-preview" style="background-color: #c9a68a;"></div><input type="color" id="accent-color" class="color-input" value="#c9a68a">
+      </div>
+      <div class="color-label">
+       Color de Acento
+      </div>
+      <div class="color-value" id="accent-value">
+       #ff69b4
+      </div>
+     </div>
+    </div>
+    <div style="background: rgba(212, 175, 155, 0.05); padding: 20px; border-radius: 1px; margin-top: 20px; border: 1px solid rgba(212, 175, 155, 0.15);"><label for="test-text-input" style="display: block; font-weight: 300; color: #d4af9b; margin-bottom: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-size: 11px; font-family: 'Lato', sans-serif;"> Texto de Prueba </label> <input type="text" id="test-text-input" value="Elegancia y sofisticación en cada detalle" style="width: 100%; padding: 14px; border: 1px solid rgba(212, 175, 155, 0.3); border-radius: 1px; font-size: 13px; font-family: 'Lato', sans-serif; background: rgba(0, 0, 0, 0.3); color: #d4af9b; letter-spacing: 0.5px;">
+    </div>
+   </section>
+   <section class="color-picker-section">
+    <h2 class="section-title"><span class="emoji">◆</span> Visión Estándar</h2>
+    <div class="simulation-card">
+     <div class="simulation-header"><span class="emoji">◆</span> Visión Normal
+     </div>
+     <div class="preview-box" id="normal-preview">
+      Elegancia y sofisticación en cada detalle
+     </div>
+     <div class="contrast-info" id="normal-contrast">
+      <div>
+       Ratio de Contraste: <span class="contrast-ratio" id="normal-ratio">-</span>
+      </div>
+      <div class="wcag-badges" id="normal-badges"></div>
+     </div>
+    </div>
+   </section>
+   <section class="color-picker-section">
+    <h2 class="section-title"><span class="emoji">◆</span> Análisis de Deficiencias Cromáticas</h2>
+    <div class="simulation-grid">
+     <div class="simulation-card">
+      <div class="simulation-header"><span class="emoji">◆</span> Protanopía
+      </div>
+      <p style="font-size: 11px; color: #8a7a6a; margin: 0 0 15px 0; letter-spacing: 0.5px; font-family: 'Lato', sans-serif;">Deficiencia en percepción del rojo (1% población masculina)</p>
+      <div class="preview-box" id="protanopia-preview">
+       Elegancia y sofisticación en cada detalle
+      </div>
+      <div class="contrast-info" id="protanopia-contrast"></div>
+     </div>
+     <div class="simulation-card">
+      <div class="simulation-header"><span class="emoji">◆</span> Deuteranopía
+      </div>
+      <p style="font-size: 11px; color: #8a7a6a; margin: 0 0 15px 0; letter-spacing: 0.5px; font-family: 'Lato', sans-serif;">Deficiencia en percepción del verde (1% población masculina)</p>
+      <div class="preview-box" id="deuteranopia-preview">
+       Elegancia y sofisticación en cada detalle
+      </div>
+      <div class="contrast-info" id="deuteranopia-contrast"></div>
+     </div>
+     <div class="simulation-card">
+      <div class="simulation-header"><span class="emoji">◆</span> Tritanopía
+      </div>
+      <p style="font-size: 11px; color: #8a7a6a; margin: 0 0 15px 0; letter-spacing: 0.5px; font-family: 'Lato', sans-serif;">Deficiencia en percepción del azul (incidencia excepcional)</p>
+      <div class="preview-box" id="tritanopia-preview">
+       Elegancia y sofisticación en cada detalle
+      </div>
+      <div class="contrast-info" id="tritanopia-contrast"></div>
+     </div>
+    </div>
+   </section>
+   <section class="suggestions">
+    <h2 class="section-title"><span class="emoji">◆</span> Paletas Recomendadas</h2>
+    <div id="suggestions-container"></div>
+   </section>
+  </main>
+  <script>
+    const defaultConfig = {
+      main_title: "Simulador de Accesibilidad",
+      subtitle: "Análisis Profesional de Contraste Cromático",
+      test_text: "Elegancia y sofisticación en cada detalle",
+      text_color: "#d4af9b",
+      background_color: "#1a1a1a",
+      accent_color: "#c9a68a",
+      font_family: "Playfair Display",
+      font_size: 16
+    };
+
+    // Paletas de colores luxury accesibles predefinidas
+    const pinkPalettes = [
+      {
+        name: "Oro Rosa sobre Ébano",
+        text: "#d4af9b",
+        bg: "#1a1a1a",
+        reason: "Contraste AAA (8.5:1) - Elegancia suprema"
+      },
+      {
+        name: "Champagne sobre Negro Profundo",
+        text: "#e6d5c3",
+        bg: "#0d0d0d",
+        reason: "Contraste AAA (12.1:1) - Máxima distinción"
+      },
+      {
+        name: "Bronce Rosado sobre Grafito",
+        text: "#c9a68a",
+        bg: "#2a2a2a",
+        reason: "Contraste AA (7.3:1) - Sofisticación refinada"
+      },
+      {
+        name: "Perla Rosa sobre Carbón",
+        text: "#f5e6d8",
+        bg: "#1f1f1f",
+        reason: "Contraste AAA (10.8:1) - Lujo atemporal"
+      }
+    ];
+
+    function hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    function rgbToHex(r, g, b) {
+      return "#" + [r, g, b].map(x => {
+        const hex = Math.round(x).toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+      }).join('');
+    }
+
+    function getLuminance(r, g, b) {
+      const [rs, gs, bs] = [r, g, b].map(c => {
+        c = c / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+    }
+
+    function getContrastRatio(color1, color2) {
+      const rgb1 = hexToRgb(color1);
+      const rgb2 = hexToRgb(color2);
+      
+      const lum1 = getLuminance(rgb1.r, rgb1.g, rgb1.b);
+      const lum2 = getLuminance(rgb2.r, rgb2.g, rgb2.b);
+      
+      const lighter = Math.max(lum1, lum2);
+      const darker = Math.min(lum1, lum2);
+      
+      return (lighter + 0.05) / (darker + 0.05);
+    }
+
+    function simulateColorBlindness(hex, type) {
+      const rgb = hexToRgb(hex);
+      let r = rgb.r, g = rgb.g, b = rgb.b;
+
+      // Matrices de transformación para diferentes tipos de daltonismo
+      if (type === 'protanopia') {
+        // Protanopía (sin conos rojos)
+        const newR = 0.567 * r + 0.433 * g;
+        const newG = 0.558 * r + 0.442 * g;
+        const newB = 0.242 * g + 0.758 * b;
+        return rgbToHex(newR, newG, newB);
+      } else if (type === 'deuteranopia') {
+        // Deuteranopía (sin conos verdes)
+        const newR = 0.625 * r + 0.375 * g;
+        const newG = 0.7 * r + 0.3 * g;
+        const newB = 0.3 * g + 0.7 * b;
+        return rgbToHex(newR, newG, newB);
+      } else if (type === 'tritanopia') {
+        // Tritanopía (sin conos azules)
+        const newR = 0.95 * r + 0.05 * g;
+        const newG = 0.433 * g + 0.567 * b;
+        const newB = 0.475 * g + 0.525 * b;
+        return rgbToHex(newR, newG, newB);
+      }
+      
+      return hex;
+    }
+
+    function getWCAGBadges(ratio) {
+      const badges = [];
+      
+      if (ratio >= 7) {
+        badges.push({ text: 'AAA Normal', pass: true });
+        badges.push({ text: 'AAA Grande', pass: true });
+        badges.push({ text: 'AA Normal', pass: true });
+        badges.push({ text: 'AA Grande', pass: true });
+      } else if (ratio >= 4.5) {
+        badges.push({ text: 'AAA Normal', pass: false });
+        badges.push({ text: 'AAA Grande', pass: true });
+        badges.push({ text: 'AA Normal', pass: true });
+        badges.push({ text: 'AA Grande', pass: true });
+      } else if (ratio >= 3) {
+        badges.push({ text: 'AAA Normal', pass: false });
+        badges.push({ text: 'AAA Grande', pass: false });
+        badges.push({ text: 'AA Normal', pass: false });
+        badges.push({ text: 'AA Grande', pass: true });
+      } else {
+        badges.push({ text: 'No cumple WCAG', pass: false });
+      }
+      
+      return badges;
+    }
+
+    function updateSimulations() {
+      const textColor = document.getElementById('text-color').value;
+      const bgColor = document.getElementById('bg-color').value;
+      const testText = document.getElementById('test-text-input').value;
+
+      // Actualizar config
+      if (window.elementSdk) {
+        window.elementSdk.setConfig({
+          text_color: textColor,
+          background_color: bgColor,
+          test_text: testText
+        });
+      }
+
+      // Visión normal
+      const normalPreview = document.getElementById('normal-preview');
+      normalPreview.style.color = textColor;
+      normalPreview.style.backgroundColor = bgColor;
+      normalPreview.textContent = testText;
+
+      const normalRatio = getContrastRatio(textColor, bgColor);
+      document.getElementById('normal-ratio').textContent = normalRatio.toFixed(2) + ':1';
+      
+      const normalBadges = getWCAGBadges(normalRatio);
+      const normalBadgesContainer = document.getElementById('normal-badges');
+      normalBadgesContainer.innerHTML = normalBadges.map(badge => 
+        `<span class="badge ${badge.pass ? 'badge-pass' : 'badge-fail'}">${badge.text}</span>`
+      ).join('');
+
+      // Simulaciones de daltonismo
+      const types = ['protanopia', 'deuteranopia', 'tritanopia'];
+      
+      types.forEach(type => {
+        const simTextColor = simulateColorBlindness(textColor, type);
+        const simBgColor = simulateColorBlindness(bgColor, type);
+        
+        const preview = document.getElementById(`${type}-preview`);
+        preview.style.color = simTextColor;
+        preview.style.backgroundColor = simBgColor;
+        preview.textContent = testText;
+
+        const ratio = getContrastRatio(simTextColor, simBgColor);
+        const badges = getWCAGBadges(ratio);
+        
+        const contrastInfo = document.getElementById(`${type}-contrast`);
+        contrastInfo.innerHTML = `
+          <div>Ratio de Contraste: <span class="contrast-ratio">${ratio.toFixed(2)}:1</span></div>
+          <div class="wcag-badges">
+            ${badges.map(badge => 
+              `<span class="badge ${badge.pass ? 'badge-pass' : 'badge-fail'}">${badge.text}</span>`
+            ).join('')}
+          </div>
+        `;
+      });
+
+      // Actualizar sugerencias
+      updateSuggestions();
+    }
+
+    function updateSuggestions() {
+      const container = document.getElementById('suggestions-container');
+      
+      container.innerHTML = pinkPalettes.map(palette => {
+        const ratio = getContrastRatio(palette.text, palette.bg);
+        return `
+          <div class="suggestion-item">
+            <div class="suggestion-title">${palette.name}</div>
+            <div style="font-size: 13px; color: #666; margin-bottom: 8px;">
+              ${palette.reason} • Contraste: ${ratio.toFixed(2)}:1
+            </div>
+            <div class="suggestion-colors">
+              <div class="suggestion-color" 
+                   style="background-color: ${palette.text};" 
+                   title="Texto: ${palette.text}"
+                   onclick="applySuggestion('${palette.text}', '${palette.bg}')">
+              </div>
+              <div class="suggestion-color" 
+                   style="background-color: ${palette.bg};" 
+                   title="Fondo: ${palette.bg}"
+                   onclick="applySuggestion('${palette.text}', '${palette.bg}')">
+              </div>
+              <button onclick="applySuggestion('${palette.text}', '${palette.bg}')" 
+                      style="padding: 10px 20px; background: linear-gradient(135deg, #d4af9b, #c9a68a); color: #1a1a1a; border: 1px solid rgba(212, 175, 155, 0.3); border-radius: 1px; cursor: pointer; font-weight: 300; font-size: 10px; margin-left: auto; letter-spacing: 2px; text-transform: uppercase; font-family: 'Lato', sans-serif; transition: all 0.3s ease;">
+                Aplicar
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function applySuggestion(textColor, bgColor) {
+      document.getElementById('text-color').value = textColor;
+      document.getElementById('bg-color').value = bgColor;
+      document.getElementById('text-preview').style.backgroundColor = textColor;
+      document.getElementById('bg-preview').style.backgroundColor = bgColor;
+      document.getElementById('text-value').textContent = textColor;
+      document.getElementById('bg-value').textContent = bgColor;
+      
+      updateSimulations();
+    }
+
+    // Event listeners para los selectores de color
+    document.getElementById('text-color').addEventListener('input', (e) => {
+      document.getElementById('text-preview').style.backgroundColor = e.target.value;
+      document.getElementById('text-value').textContent = e.target.value;
+      updateSimulations();
+    });
+
+    document.getElementById('bg-color').addEventListener('input', (e) => {
+      document.getElementById('bg-preview').style.backgroundColor = e.target.value;
+      document.getElementById('bg-value').textContent = e.target.value;
+      updateSimulations();
+    });
+
+    document.getElementById('accent-color').addEventListener('input', (e) => {
+      document.getElementById('accent-preview').style.backgroundColor = e.target.value;
+      document.getElementById('accent-value').textContent = e.target.value;
+      if (window.elementSdk) {
+        window.elementSdk.setConfig({ accent_color: e.target.value });
+      }
+    });
+
+    document.getElementById('test-text-input').addEventListener('input', (e) => {
+      updateSimulations();
+    });
+
+    // Click en preview para abrir selector
+    document.getElementById('text-preview').addEventListener('click', () => {
+      document.getElementById('text-color').click();
+    });
+
+    document.getElementById('bg-preview').addEventListener('click', () => {
+      document.getElementById('bg-color').click();
+    });
+
+    document.getElementById('accent-preview').addEventListener('click', () => {
+      document.getElementById('accent-color').click();
+    });
+
+    // Element SDK
+    async function onConfigChange(config) {
+      const mainTitle = document.getElementById('main-title');
+      const subtitle = document.getElementById('subtitle');
+      const testTextInput = document.getElementById('test-text-input');
+
+      mainTitle.textContent = config.main_title || defaultConfig.main_title;
+      subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+      testTextInput.value = config.test_text || defaultConfig.test_text;
+
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseSize = config.font_size || defaultConfig.font_size;
+
+      document.body.style.fontFamily = `${customFont}, 'Georgia', serif`;
+      
+      // Aplicar Lato a elementos secundarios
+      document.querySelectorAll('.section-title, .subtitle, .color-label, .simulation-header, .suggestion-title, label').forEach(el => {
+        el.style.fontFamily = `'Lato', sans-serif`;
+      });
+      
+      mainTitle.style.fontSize = `${baseSize * 2}px`;
+      subtitle.style.fontSize = `${baseSize}px`;
+      document.querySelectorAll('.section-title').forEach(el => {
+        el.style.fontSize = `${baseSize * 1.25}px`;
+      });
+      document.querySelectorAll('.preview-box').forEach(el => {
+        el.style.fontSize = `${baseSize * 1.125}px`;
+      });
+
+      updateSimulations();
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => {
+                config.accent_color = value;
+                window.elementSdk.setConfig({ accent_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => {
+              config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => {
+              config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["main_title", config.main_title || defaultConfig.main_title],
+          ["subtitle", config.subtitle || defaultConfig.subtitle],
+          ["test_text", config.test_text || defaultConfig.test_text]
+        ])
+      });
+    }
+
+    // Inicializar
+    updateSimulations();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99c256378279a0ab',t:'MTc2Mjc0NDAxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
