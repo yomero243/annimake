@@ -39,9 +39,9 @@ export default function Home() {
               href="/servicios"
             />
             <ServiceCard
-              title="Peinado y Estilismo"
-              description="Recogidos, ondas y tratamientos capilares para ocasiones especiales."
-              icon="💇‍♀️"
+              title="Productos"
+              description="Productos exclusivos para el cuidado de tu belleza en casa."
+              icon="🛍️"
               href="/servicios"
             />
           </div>
