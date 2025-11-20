@@ -9,8 +9,6 @@
 
 body {
   color: var(--foreground);
-  background: url('/background/bgimagen1.webp') no-repeat center center fixed;
-  background-size: cover;
   background-color: var(--background);
   /* Fallback */
   font-family: var(--font-lato), sans-serif;

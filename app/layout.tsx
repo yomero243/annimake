@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Lato } from "next/font/google";
 import "./globals.css";
+import BackgroundParallax from "@/components/BackgroundParallax";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${lato.variable} antialiased text-rosegold selection:bg-rosegold selection:text-ebony`}
       >
+        <BackgroundParallax />
         {children}
       </body>
     </html>
