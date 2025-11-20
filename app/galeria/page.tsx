@@ -45,7 +45,7 @@ export default function Galeria() {
                     {images.map((img, index) => (
                         <div
                             key={index}
-                            className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-ebony-light border border-ebony-lighter"
+                            className="group relative aspect-4/5 overflow-hidden rounded-lg bg-ebony-light border border-ebony-lighter"
                         >
                             <Image
                                 src={img.src}
@@ -53,7 +53,7 @@ export default function Galeria() {
                                 fill
                                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-ebony/90 via-ebony/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                            <div className="absolute inset-0 bg-linear-to-t from-ebony/90 via-ebony/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                                 <span className="text-rosegold text-sm font-medium tracking-wider uppercase mb-2">
                                     {img.category}
                                 </span>

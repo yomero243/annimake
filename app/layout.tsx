@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${playfair.variable} ${lato.variable} antialiased bg-ebony text-rosegold selection:bg-rosegold selection:text-ebony`}
+        className={`${playfair.variable} ${lato.variable} antialiased text-rosegold selection:bg-rosegold selection:text-ebony`}
       >
         {children}
       </body>

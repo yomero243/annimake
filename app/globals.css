@@ -3,17 +3,25 @@
 :root {
   --background: #0C0C0C;
   --foreground: #E0BFB8;
-  
+
   /* Font variables will be injected by Next.js */
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: url('/background/bgimagen1.webp') no-repeat center center fixed;
+  background-size: cover;
+  background-color: var(--background);
+  /* Fallback */
   font-family: var(--font-lato), sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-playfair-display), serif;
 }
 
@@ -21,13 +29,16 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #0C0C0C; 
+  background: #0C0C0C;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #333; 
+  background: #333;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #B76E79; 
+  background: #B76E79;
 }
