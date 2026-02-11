@@ -19,6 +19,7 @@ export default function ScrollReveal({ children, className = "", delay = 0 }: Sc
         const el = elRef.current;
         if (!el) return;
 
+        // Animate the container
         gsap.fromTo(
             el,
             {
@@ -38,6 +39,28 @@ export default function ScrollReveal({ children, className = "", delay = 0 }: Sc
                 },
             }
         );
+
+        // Animate images if present inside
+        const images = el.querySelectorAll("img");
+        if (images.length > 0) {
+            gsap.fromTo(
+                images,
+                {
+                    filter: "grayscale(100%)",
+                },
+                {
+                    filter: "grayscale(0%)",
+                    duration: 1.5,
+                    delay: delay + 0.2, // Slightly delayed for effect
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse",
+                    },
+                }
+            );
+        }
     }, [delay]);
 
     return (

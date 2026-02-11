@@ -1,26 +1,33 @@
 import Link from 'next/link';
 
 interface ServiceCardProps {
+    level: string;
     title: string;
     description: string;
-    icon: string;
+    image: string;
     href: string;
+    className?: string;
 }
 
-export default function ServiceCard({ title, description, icon, href }: ServiceCardProps) {
+export default function ServiceCard({ level, title, description, image, href, className = "" }: ServiceCardProps) {
     return (
-        <div className="group bg-ebony p-8 rounded-2xl border border-ebony-lighter hover:border-rosegold/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
-            <div className="h-12 w-12 bg-rosegold/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-rosegold group-hover:text-ebony transition-colors">
-                <span className="text-2xl">{icon}</span>
+        <div className={`service-card-3d relative group aspect-[3/4] overflow-hidden rounded-sm glass-morphism ${className}`}>
+            <img
+                alt={title}
+                className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                src={image}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+            <div className="absolute bottom-8 left-8 right-8">
+                <span className="text-rose-gold text-[10px] tracking-[0.4em] uppercase mb-2 block">{level}</span>
+                <h3 className="text-2xl font-display text-white uppercase tracking-tight mb-4">{title}</h3>
+                <p className="text-white/40 text-[10px] uppercase tracking-widest leading-relaxed mb-6">
+                    {description}
+                </p>
+                <Link href={href} className="inline-flex items-center text-white text-[10px] uppercase tracking-[0.3em] border-b border-rose-gold pb-1 hover:text-rose-gold transition-colors">
+                    Enter Module
+                </Link>
             </div>
-            <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-            <p className="text-gray-400 mb-6 text-sm flex-grow">{description}</p>
-            <Link href={href} className="text-rosegold text-sm font-bold hover:text-white transition-colors inline-flex items-center">
-                Saber más
-                <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-            </Link>
         </div>
     );
 }

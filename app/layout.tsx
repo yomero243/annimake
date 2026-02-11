@@ -1,18 +1,19 @@
 
 import type { Metadata } from "next";
-import { Playfair_Display, Lato } from "next/font/google";
+import { Syncopate, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import BackgroundParallax from "@/components/BackgroundParallax";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair-display",
+const syncopate = Syncopate({
+  variable: "--font-syncopate",
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
 });
 
-const lato = Lato({
-  variable: "--font-lato",
-  weight: ["300", "400", "700"],
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -30,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${playfair.variable} ${lato.variable} antialiased text-rosegold selection:bg-rosegold selection:text-ebony`}
+        className={`${syncopate.variable} ${spaceGrotesk.variable} antialiased font-body text-charcoal bg-background-light selection:bg-rose-gold selection:text-white`}
       >
         <BackgroundParallax />
         {children}

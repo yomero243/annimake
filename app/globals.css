@@ -1,17 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0C0C0C;
-  --foreground: #E0BFB8;
-
-  /* Font variables will be injected by Next.js */
+  --background: #f7f7f7;
+  --foreground: #2C2C2C;
 }
 
 body {
   color: var(--foreground);
   background-color: var(--background);
-  /* Fallback */
-  font-family: var(--font-lato), sans-serif;
+  font-family: var(--font-space-grotesk), sans-serif;
 }
 
 h1,
@@ -20,23 +17,33 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-playfair-display), serif;
+  font-family: var(--font-syncopate), sans-serif;
 }
 
-/* Custom Scrollbar for Webkit */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0C0C0C;
+  background: #f7f7f7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #E0C0B0;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B76E79;
+  background: #BFA090;
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
 }

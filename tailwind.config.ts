@@ -9,26 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        // Custom Palette: Rose Gold on Ebony
-        ebony: {
-          DEFAULT: "#0C0C0C", // Deep rich black
-          light: "#1A1A1A",   // Slightly lighter for cards/sections
-          lighter: "#2A2A2A", // Borders or secondary elements
-        },
-        rosegold: {
-          DEFAULT: "#E0BFB8", // Primary text / soft rose gold
-          dark: "#B76E79",    // Accents / Buttons
-          light: "#F2Ddd9",   // Hover states / Highlights
-        },
-        gold: {
-          DEFAULT: "#D4AF37", // Classic gold for subtle highlights if needed
-        }
+        primary: "#d2c7d6",
+        "rose-gold": "#E0C0B0",
+        "rose-gold-dark": "#BFA090",
+        charcoal: "#2C2C2C",
+        "background-light": "#f7f7f7",
+        "background-dark": "#0a0a0a",
+        "overlay-dark": "rgba(0, 0, 0, 0.6)",
+        "glass-light": "rgba(255, 255, 255, 0.05)",
+        "glass-border": "rgba(224, 192, 176, 0.2)",
       },
       fontFamily: {
-        serif: ['var(--font-playfair-display)', 'serif'],
-        sans: ['var(--font-lato)', 'sans-serif'],
+        display: ["var(--font-syncopate)", "sans-serif"],
+        body: ["var(--font-space-grotesk)", "sans-serif"],
       },
     },
   },
