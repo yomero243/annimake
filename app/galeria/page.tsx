@@ -45,7 +45,7 @@ export default function Galeria() {
                     {images.map((img, index) => (
                         <div
                             key={index}
-                            className="group relative aspect-4/5 overflow-hidden rounded-lg bg-ebony-light border border-ebony-lighter"
+                            className="group relative aspect-4/5 overflow-hidden rounded-2xl bg-ebony-light border border-ebony-lighter"
                         >
                             <Image
                                 src={img.src}

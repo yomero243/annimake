@@ -12,7 +12,7 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ level, title, description, image, href, className = "" }: ServiceCardProps) {
     return (
-        <div className={`service-card-3d relative group aspect-3/4 overflow-hidden rounded-sm glass-morphism ${className}`}>
+        <div className={`service-card-3d relative group aspect-3/4 overflow-hidden rounded-xl glass-morphism ${className}`}>
             <Image
                 src={image}
                 alt={`${title} - Anny Perez Estudio`}
