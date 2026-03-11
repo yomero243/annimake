@@ -41,7 +41,7 @@ export default function Servicios() {
                 <ScrollReveal>
                     <div className="text-center mb-24">
                         <h1 className="text-4xl md:text-6xl font-display text-white mb-6 uppercase tracking-widest">Nuestros Servicios</h1>
-                        <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-rose-gold to-transparent mx-auto"></div>
+                        <div className="w-24 h-0.5 bg-linear-to-r from-transparent via-rose-gold to-transparent mx-auto"></div>
                         <p className="mt-8 text-xl text-rosegold/80 max-w-2xl mx-auto font-light font-body">
                             Explora nuestra gama completa de tratamientos de belleza diseñados para ti.
                         </p>

@@ -10,7 +10,7 @@ export default function Hero() {
             </div>
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 className="text-5xl md:text-7xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-rosegold via-white to-rosegold mb-6 animate-fade-in-up">
+                <h1 className="text-5xl md:text-7xl font-serif font-bold text-transparent bg-clip-text bg-linear-to-r from-rosegold via-white to-rosegold mb-6 animate-fade-in-up">
                     Belleza que Inspira
                 </h1>
                 <p className="mt-4 text-xl md:text-2xl text-rosegold-light max-w-3xl mx-auto font-light tracking-wide mb-10">

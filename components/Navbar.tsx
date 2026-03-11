@@ -11,8 +11,8 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     <div className="shrink-0">
-                        <Link href="/" className="text-white font-display text-lg tracking-[0.2em] uppercase leading-none">
-                            Anny Perez
+                        <Link href="/" className="text-white font-display text-lg tracking-[0.2em] uppercase leading-none block">
+                            Anny Perez <span className="block text-[10px] text-rose-gold mt-1">Estudio </span>
                         </Link>
                     </div>
                     <div className="hidden md:block">

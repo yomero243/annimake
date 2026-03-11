@@ -11,13 +11,13 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ level, title, description, image, href, className = "" }: ServiceCardProps) {
     return (
-        <div className={`service-card-3d relative group aspect-[3/4] overflow-hidden rounded-sm glass-morphism ${className}`}>
+        <div className={`service-card-3d relative group aspect-3/4 overflow-hidden rounded-sm glass-morphism ${className}`}>
             <img
                 alt={title}
                 className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 src={image}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent"></div>
             <div className="absolute bottom-8 left-8 right-8">
                 <span className="text-rose-gold text-[10px] tracking-[0.4em] uppercase mb-2 block">{level}</span>
                 <h3 className="text-2xl font-display text-white uppercase tracking-tight mb-4">{title}</h3>
