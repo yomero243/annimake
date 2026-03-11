@@ -19,8 +19,27 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Anny Perez Estudio | Belleza y Estilo",
-  description: "Servicios de belleza profesional: maquillaje, uñas, peinados y más.",
+  title: "Anny Perez Estudio | Belleza y Estilo en Maquillaje y Uñas",
+  description: "Descubre Anny Perez Estudio: Expertos en maquillaje profesional, nail art, peinados y cuidado personal. Realzamos tu belleza natural con servicios exclusivos y productos de alta gama.",
+  keywords: ["maquillaje profesional", "nail art", "estudio de belleza", "Anny Perez", "peinados", "manicura", "belleza profesional"],
+  authors: [{ name: "Anny Perez" }],
+  openGraph: {
+    title: "Anny Perez Estudio | Belleza y Estilo",
+    description: "Servicios de belleza profesional: maquillaje, uñas, peinados y más.",
+    url: "https://annyperezestudio.com",
+    siteName: "Anny Perez Estudio",
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Anny Perez Estudio | Belleza y Estilo",
+    description: "Servicios de belleza profesional: maquillaje, uñas, peinados y más.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

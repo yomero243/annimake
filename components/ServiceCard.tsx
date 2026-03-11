@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface ServiceCardProps {
     level: string;
@@ -12,10 +13,12 @@ interface ServiceCardProps {
 export default function ServiceCard({ level, title, description, image, href, className = "" }: ServiceCardProps) {
     return (
         <div className={`service-card-3d relative group aspect-3/4 overflow-hidden rounded-sm glass-morphism ${className}`}>
-            <img
-                alt={title}
-                className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+            <Image
                 src={image}
+                alt={`${title} - Anny Perez Estudio`}
+                fill
+                className="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent"></div>
             <div className="absolute bottom-8 left-8 right-8">
