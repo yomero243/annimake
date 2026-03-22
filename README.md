@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Annimake Studio
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
 
-First, run the development server:
+> A premium beauty & styling studio landing page built with **Next.js 15** and **Tailwind CSS**. Features scroll-triggered animations, parallax effects, and a sophisticated dark aesthetic targeting a luxury clientele.
+
+---
+
+## 🖼️ Pages & Sections
+
+### `/` — Home
+- **Hero** — Full-viewport cinematic intro with parallax background and animated text
+- **Services Preview** — Staggered card grid showcasing the three service tiers with `ScrollReveal` entrance animations
+- **Footer** — Studio branding and contact
+
+### `/galeria` — Gallery
+- Visual portfolio of work — hairstyles, makeup, nail art — presented in an editorial grid
+
+### `/servicios` — Services
+- Detailed breakdown of service offerings: Maquillaje Profesional, Nail Art & Cuidado, Productos
+
+---
+
+## ✨ Technical Highlights
+
+- 🎬 **Scroll-Triggered Animations** — `ScrollReveal` component wraps content sections for smooth entrance effects with configurable delay
+- 🖼️ **Parallax Background** — `BackgroundParallax` component for depth-layered hero imagery
+- 🃏 **3D Service Cards** — perspective-tilted cards with hover interactions (`ServiceCard`)
+- 🗺️ **SEO-Ready** — `robots.ts` and `sitemap.ts` configured for production indexing
+- ⚡ **App Router** — full Next.js 15 App Router architecture with server/client component split
+- 🎨 **Custom Design System** — Tailwind extended with `ebony`, `rose-gold`, and `ebony-light` color tokens
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Tech |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Styling | Tailwind CSS 3 + custom tokens |
+| Language | TypeScript 5 |
+| Runtime | React 19 |
+| Font | Geist (Vercel) |
+| Images | Next.js `<Image>` + WebP |
+
+---
+
+## 🚀 Getting Started
 
 ```bash
+git clone https://github.com/yomero243/annimake.git
+cd annimake
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build    # Production build
+npm run start    # Serve production build
+npm run lint     # ESLint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+annimake/
+├── app/
+│   ├── page.tsx           # Home — hero + services preview
+│   ├── layout.tsx         # Root layout with fonts + globals
+│   ├── globals.css        # Base styles + Tailwind directives
+│   ├── galeria/
+│   │   └── page.tsx       # Photo gallery page
+│   ├── servicios/
+│   │   └── page.tsx       # Services detail page
+│   ├── robots.ts          # SEO robots config
+│   └── sitemap.ts         # Sitemap generation
+├── components/
+│   ├── Navbar.tsx         # Responsive navigation
+│   ├── Hero.tsx           # Full-viewport hero section
+│   ├── ServiceCard.tsx    # 3D-perspective service card
+│   ├── ScrollReveal.tsx   # Scroll-triggered entrance wrapper
+│   ├── BackgroundParallax.tsx  # Parallax depth layer
+│   └── Footer.tsx         # Studio footer
+├── public/
+│   ├── background/        # Hero imagery (WebP + JPG)
+│   └── images/gallery/    # Gallery assets (PNG)
+└── tailwind.config.ts     # Extended design tokens
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Design Decisions
 
-## Deploy on Vercel
+- **Ebony + Rose Gold palette** — luxury feel that reads as premium without being cold
+- **Serif headings + light body text** — editorial typography hierarchy
+- **Staggered scroll reveals** — each section enters with progressive delay to create a cinematic rhythm
+- **WebP assets** — all hero imagery converted to WebP for optimal LCP
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 👨‍💻 About
+
+Built by **Gabriel** — Fullstack developer with a focus on performant, design-forward web experiences.
+
+> 💼 **Available for freelance** — landing pages, studio sites, 3D web experiences, and frontend engineering. [Let's connect →](https://github.com/yomero243)
