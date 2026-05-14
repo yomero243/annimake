@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
 export default function Hero() {
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const [mousePos, setMousePos] = useState({ x: 180, y: 70 });
     const [scrollY, setScrollY] = useState(0);
     const h1Ref = useRef<HTMLHeadingElement>(null);
 
@@ -53,40 +53,45 @@ export default function Hero() {
     }, []);
 
     // En móviles, el scroll suma un desplazamiento extra para que el brillo no se quede estático al bajar
-    const spotlightY = mousePos.y + (window.innerWidth < 768 ? scrollY * 0.2 : 0);
+    const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+    const spotlightY = mousePos.y + (isMobile ? scrollY * 0.2 : 0);
+    const titleGradient = isMobile
+        ? 'linear-gradient(90deg, #ffffff 0%, #E0BFB8 55%, rgba(224, 191, 184, 0.72) 100%)'
+        : `radial-gradient(circle 150px at ${mousePos.x}px ${spotlightY}px, #fff 0%, rgba(224, 191, 184, 0.75) 40%, rgba(224, 191, 184, 0.55) 100%)`;
 
     return (
-        <div className="relative bg-ebony min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="relative bg-ebony min-h-screen w-full max-w-full flex items-center justify-center overflow-hidden">
             {/* Abstract Background Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
                 <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-rosegold/5 blur-[100px]"></div>
                 <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-rosegold/5 blur-[120px]"></div>
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h1 
                     ref={h1Ref}
-                    className="text-5xl md:text-8xl font-serif font-bold text-transparent bg-clip-text mb-6 animate-fade-in-up selection:text-rosegold cursor-default transition-all duration-75 ease-out"
+                    className="max-w-[22rem] sm:max-w-none mx-auto text-3xl sm:text-5xl md:text-8xl leading-tight font-serif font-bold text-transparent bg-clip-text mb-6 animate-fade-in-up selection:text-rosegold cursor-default transition-all duration-75 ease-out"
                     style={{
-                        backgroundImage: `radial-gradient(circle 150px at ${mousePos.x}px ${spotlightY}px, #fff 0%, rgba(224, 191, 184, 0.6) 40%, rgba(224, 191, 184, 0.1) 80%, transparent 100%)`,
+                        backgroundImage: titleGradient,
                         backgroundColor: '#1a1a1a',
                     }}
                 >
-                    Belleza que Inspira
+                    <span className="block">Belleza que</span>
+                    <span className="block">Inspira</span>
                 </h1>
-                <p className="mt-4 text-xl md:text-2xl text-rosegold-light max-w-3xl mx-auto font-light tracking-wide mb-10">
+                <p className="mt-4 text-lg sm:text-xl md:text-2xl text-rosegold-light max-w-[22rem] sm:max-w-3xl mx-auto font-light tracking-wide mb-10">
                     Descubre tu mejor versión con nuestros servicios exclusivos de maquillaje, uñas y estilismo.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <Link
                         href="/reservas"
-                        className="px-8 py-4 bg-rosegold text-ebony font-bold rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(224,191,184,0.3)]"
+                        className="w-full max-w-[19rem] mx-auto sm:w-auto px-8 py-4 bg-rosegold text-ebony font-bold rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(224,191,184,0.3)]"
                     >
                         Reserva tu Cita
                     </Link>
                     <Link
                         href="/servicios"
-                        className="px-8 py-4 border border-rosegold text-rosegold font-bold rounded-full hover:bg-rosegold/10 transition-all duration-300"
+                        className="w-full max-w-[19rem] mx-auto sm:w-auto px-8 py-4 border border-rosegold text-rosegold font-bold rounded-full hover:bg-rosegold/10 transition-all duration-300"
                     >
                         Ver Servicios
                     </Link>

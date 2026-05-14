@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #d2c7d6;
+  --color-rosegold: #E0C0B0;
+  --color-rosegold-light: #F3DCD2;
+  --color-rosegold-dark: #BFA090;
+  --color-rose-gold: #E0C0B0;
+  --color-rose-gold-dark: #BFA090;
+  --color-ebony: #0a0a0a;
+  --color-ebony-light: #121212;
+  --color-ebony-lighter: #252525;
+  --color-charcoal: #2C2C2C;
+  --color-background-light: #f7f7f7;
+  --color-background-dark: #0a0a0a;
+  --color-overlay-dark: rgba(0, 0, 0, 0.6);
+  --color-glass-light: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(224, 192, 176, 0.2);
+  --font-display: var(--font-syncopate), sans-serif;
+  --font-body: var(--font-space-grotesk), sans-serif;
+  --font-serif: var(--font-syncopate), sans-serif;
+}
+
 :root {
   --background: #f7f7f7;
   --foreground: #2C2C2C;
@@ -9,6 +30,7 @@ body {
   color: var(--foreground);
   background-color: var(--background);
   font-family: var(--font-space-grotesk), sans-serif;
+  overflow-x: hidden;
 }
 
 h1,
@@ -42,6 +64,123 @@ h6 {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bg-ebony {
+  background-color: #0a0a0a;
+}
+
+.bg-ebony\/90 {
+  background-color: rgba(10, 10, 10, 0.9);
+}
+
+.bg-ebony-light {
+  background-color: #121212;
+}
+
+.bg-ebony-light\/80 {
+  background-color: rgba(18, 18, 18, 0.8);
+}
+
+.bg-ebony-lighter,
+.hover\:bg-ebony-lighter:hover {
+  background-color: #252525;
+}
+
+.bg-rosegold,
+.bg-rose-gold {
+  background-color: #E0C0B0;
+}
+
+.bg-rosegold\/5,
+.bg-rose-gold\/5 {
+  background-color: rgba(224, 192, 176, 0.05);
+}
+
+.bg-rosegold\/10,
+.bg-rose-gold\/10,
+.hover\:bg-rosegold\/10:hover {
+  background-color: rgba(224, 192, 176, 0.1);
+}
+
+.bg-primary\/5 {
+  background-color: rgba(210, 199, 214, 0.05);
+}
+
+.bg-background-light {
+  background-color: #f7f7f7;
+}
+
+.text-ebony {
+  color: #0a0a0a;
+}
+
+.text-rosegold,
+.text-rose-gold {
+  color: #E0C0B0;
+}
+
+.text-rosegold\/80 {
+  color: rgba(224, 192, 176, 0.8);
+}
+
+.text-rosegold-light {
+  color: #F3DCD2;
+}
+
+.text-charcoal {
+  color: #2C2C2C;
+}
+
+.border-rosegold,
+.border-rose-gold {
+  border-color: #E0C0B0;
+}
+
+.border-ebony-lighter {
+  border-color: #252525;
+}
+
+.via-rose-gold {
+  --tw-gradient-via: #E0C0B0;
+  --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-via-stops);
+}
+
+.from-ebony\/90 {
+  --tw-gradient-from: rgba(10, 10, 10, 0.9);
+  --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+}
+
+.via-ebony\/20 {
+  --tw-gradient-via: rgba(10, 10, 10, 0.2);
+  --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-via-stops);
+}
+
+.font-display {
+  font-family: var(--font-syncopate), sans-serif;
+}
+
+.font-body {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+.selection\:bg-rosegold::selection,
+.selection\:bg-rosegold *::selection,
+.selection\:bg-rose-gold::selection,
+.selection\:bg-rose-gold *::selection {
+  background-color: #E0C0B0;
+}
+
+.selection\:text-ebony::selection,
+.selection\:text-ebony *::selection {
+  color: #0a0a0a;
+}
+
+.selection\:text-white::selection,
+.selection\:text-white *::selection {
+  color: #fff;
 }
 
 .perspective-1000 {
