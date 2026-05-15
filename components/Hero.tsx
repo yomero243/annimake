@@ -53,7 +53,8 @@ export default function Hero() {
     }, []);
 
     // En móviles, el scroll suma un desplazamiento extra para que el brillo no se quede estático al bajar
-    const spotlightY = mousePos.y + (window.innerWidth < 768 ? scrollY * 0.2 : 0);
+    const isMobileViewport = typeof window !== "undefined" && window.innerWidth < 768;
+    const spotlightY = mousePos.y + (isMobileViewport ? scrollY * 0.2 : 0);
 
     return (
         <div className="relative bg-ebony min-h-screen flex items-center justify-center overflow-hidden">

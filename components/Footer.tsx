@@ -18,6 +18,7 @@ export default function Footer() {
                             <li><Link href="/servicios" className="hover:text-white transition-colors">Servicios</Link></li>
                             <li><Link href="/precios" className="hover:text-white transition-colors">Lista de Precios</Link></li>
                             <li><Link href="/galeria" className="hover:text-white transition-colors">Portafolio</Link></li>
+                            <li><Link href="/preguntas-frecuentes" className="hover:text-white transition-colors">Preguntas Frecuentes</Link></li>
                             <li><Link href="/reservas" className="hover:text-white transition-colors">Reservar Cita</Link></li>
                         </ul>
                     </div>

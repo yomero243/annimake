@@ -26,6 +26,9 @@ export default function Navbar() {
                             <Link href="/galeria" className="text-rosegold hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Galería
                             </Link>
+                            <Link href="/preguntas-frecuentes" className="text-rosegold hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                FAQ
+                            </Link>
                             <Link href="/sobre-mi" className="text-rosegold hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                                 Sobre Mí
                             </Link>
@@ -71,6 +74,9 @@ export default function Navbar() {
                         </Link>
                         <Link href="/galeria" className="text-rosegold hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                             Galería
+                        </Link>
+                        <Link href="/preguntas-frecuentes" className="text-rosegold hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                            FAQ
                         </Link>
                         <Link href="/sobre-mi" className="text-rosegold hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                             Sobre Mí
