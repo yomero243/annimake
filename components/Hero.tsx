@@ -53,11 +53,8 @@ export default function Hero() {
     }, []);
 
     // En móviles, el scroll suma un desplazamiento extra para que el brillo no se quede estático al bajar
-    const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
-    const spotlightY = mousePos.y + (isMobile ? scrollY * 0.2 : 0);
-    const titleGradient = isMobile
-        ? 'linear-gradient(90deg, #ffffff 0%, #E0BFB8 55%, rgba(224, 191, 184, 0.72) 100%)'
-        : `radial-gradient(circle 150px at ${mousePos.x}px ${spotlightY}px, #fff 0%, rgba(224, 191, 184, 0.75) 40%, rgba(224, 191, 184, 0.55) 100%)`;
+    const isMobileViewport = typeof window !== "undefined" && window.innerWidth < 768;
+    const spotlightY = mousePos.y + (isMobileViewport ? scrollY * 0.2 : 0);
 
     return (
         <div className="relative bg-ebony min-h-screen w-full max-w-full flex items-center justify-center overflow-hidden">
